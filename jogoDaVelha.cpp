@@ -9,6 +9,43 @@ void limpaTela() {
     system("CLS");
 }
 
+void iniciaTabuleiro(char tabuleiro[3][3]) {
+    int linha, coluna;
+
+    //Populando a matriz
+    for(linha = 0; linha < 3; linha++) {
+        for(coluna = 0; coluna < 3; coluna++) {
+            tabuleiro[linha][coluna] = '-';
+        }
+    }
+
+}
+
+void exibeTabuleiro(char tabuleiro[3][3]) {
+    int linha, coluna;
+
+    //Exibindo a matriz
+    for(linha = 0; linha < 3; linha++) {
+        for(coluna = 0; coluna < 3; coluna++) {
+            cout << tabuleiro[linha][coluna];
+        }
+        cout << "\n";
+    }
+}
+
+void jogo() {
+
+    ///Variáveis gerais
+    char tabuleiro[3][3];                               //Tabuleiro do jogo
+    int linha, coluna;                                  //Auxiliar matriz
+
+    //Função que inicia/popula o tabuleiro
+    iniciaTabuleiro(tabuleiro);
+
+    //Função que exibe o tabuleiro
+    exibeTabuleiro(tabuleiro);
+}
+
 void menuInicial() {
     int opcao = 0;
 
@@ -27,7 +64,8 @@ void menuInicial() {
         switch(opcao) {
             case 1:
                 //Inicia o jogo
-                cout << "Jogo iniciado";
+                cout << "Jogo iniciado\n";
+                jogo();
                 break;
             case 2:
                 cout << "Informacoes do jogo";
