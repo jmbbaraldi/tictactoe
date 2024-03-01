@@ -23,7 +23,7 @@ void iniciaTabuleiro(char tabuleiro[3][3]) {
 
 void exibeTabuleiro(char tabuleiro[3][3]) {
     int linha, coluna;
-
+    cout << "\n";
     //Exibindo a matriz
     for(linha = 0; linha < 3; linha++) {
         for(coluna = 0; coluna < 3; coluna++) {
@@ -46,7 +46,7 @@ void jogo() {
     //Função que inicia/popula o tabuleiro
     iniciaTabuleiro(tabuleiro);
 
-    while(rodada < 9) {
+    while(rodada < 9 && estadoDeJogo == 1) {
 
         limpaTela();
 
@@ -71,11 +71,36 @@ void jogo() {
             turnoDoJogador = 1;
         }
 
+        //Confere se o jogo acabou em linhas
+        for(linha = 0; linha < 3; linha++) {
+            if(tabuleiro[linha][0] == 'X' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] == tabuleiro[linha][2]) {
+                estadoDeJogo = 0;
+                cout << "O jogador X venceu!";
+            }
+            else if(tabuleiro[linha][0] == 'O' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] == tabuleiro[linha][2]) {
+                estadoDeJogo = 0;
+                cout << "O jogador O venceu!";
+            }
+        }
+
+        //Confere as colunas
+        for(coluna = 0; coluna < 3; coluna++) {
+            if(tabuleiro[0][coluna] == 'X' && tabuleiro[0][coluna] == tabuleiro[1][coluna] && tabuleiro[1][coluna] == tabuleiro[2][coluna]) {
+                estadoDeJogo = 0;
+                cout << "O jogador X venceu!";
+            }
+            else if(tabuleiro[0][coluna] == 'O' && tabuleiro[0][coluna] == tabuleiro[1][coluna] && tabuleiro[1][coluna] == tabuleiro[2][coluna]) {
+                estadoDeJogo = 0;
+                cout << "O jogador O venceu!";
+            }
+        }
+
         //Incrementa a rodada
         rodada++;
     }
 
-    cout << "Fim de jogo!";
+    exibeTabuleiro(tabuleiro);
+    cout << "\nFim de jogo!";
 }
 
 void menuInicial() {
