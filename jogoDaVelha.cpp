@@ -90,10 +90,10 @@ void exibeInstrucoes() {
     cout << "\n 1 | 2 | 3";
 }
 
-void jogo() {
+void jogo(string nomeJogadorUm, string nomeJogadorDois, int pontuacaoJogadorUm, int pontuacaoJogadorDois) {
 
     ///Variáveis gerais
-    string nomeJogadorUm, nomeJogadorDois, jogadorAtual;    //Nomes dos jogadores
+    string jogadorAtual;                                    //Nomes dos jogadores
     char tabuleiro[3][3];                                   //Tabuleiro do jogo
     int linha, coluna;                                      //Auxiliar matriz
     int linhaJogada, colunaJogada, posicaoJogada;           //Jogador posiciona sua jogada
@@ -106,22 +106,18 @@ void jogo() {
     //Função que inicia/popula o tabuleiro
     iniciaTabuleiro(tabuleiro);
 
-    cout << "Digite o nome do jogador 1: ";
-    cin >> nomeJogadorUm;
-    cout << "Digite o nome do jogador 2: ";
-    cin >> nomeJogadorDois;
-
     while(rodada < 9 && estadoDeJogo == 1) {
 
         limpaTela();
+
+        cout << "\nRodada: " << rodada << "\n";
+        cout << "Pontuacao: \n" << nomeJogadorUm << " " << pontuacaoJogadorUm << " x " << pontuacaoJogadorDois << " " << nomeJogadorDois;
 
         //Função que exibe o tabuleiro
         exibeTabuleiro(tabuleiro);
 
         //Exibe qual número corresponde a qual posição
         exibeInstrucoes();
-
-        cout << "\nRodada: " << rodada << "\n";
 
         //Atualiza o nome do jogador atual
         if(turnoDoJogador == 1) {
@@ -138,7 +134,7 @@ void jogo() {
 
         while(posicionouJogada == false) {
 
-            cout << jogadorAtual<< ", digite uma posicao conforme o mapa acima: ";
+            cout << "\n" << jogadorAtual<< ", digite uma posicao conforme o mapa acima: ";
             cin >> posicaoJogada;
 
             linhaJogada = posicoes[posicaoJogada-1][0];
@@ -167,11 +163,13 @@ void jogo() {
 
         //Confere posicionamento de vitória
         if(confereTabuleiro(tabuleiro) == 1) {
-            cout << "\nO jogador X venceu!";
+            cout << "\nO jogador X venceu!\n";
+            pontuacaoJogadorUm++;
             estadoDeJogo = 0;
         }
         else if(confereTabuleiro(tabuleiro) == 2) {
-            cout << "\nO jogador O venceu!";
+            cout << "\nO jogador O venceu!\n";
+            pontuacaoJogadorDois++;
             estadoDeJogo = 0;
         }
 
@@ -181,11 +179,15 @@ void jogo() {
 
     exibeTabuleiro(tabuleiro);
     cout << "\nFim de jogo!";
-    cout << "\nDeseja reiniciar o jogo?";
-    cout << "\n1 - Sim";
-    cout << "\n2 - Nao\n";
+    cout << "\nO que deseja fazer?";
+    cout << "\n1 - Continuar jogando";
+    cout << "\n2 - Menu inicial";
+    cout << "\n3 - Sair\n";
     cin >> opcao;
     if(opcao == 1) {
+        jogo(nomeJogadorUm, nomeJogadorDois, pontuacaoJogadorUm, pontuacaoJogadorDois);
+    }
+    else if(opcao == 2){
         menuInicial();
     }
     else {
@@ -195,6 +197,9 @@ void jogo() {
 
 void menuInicial() {
     int opcao = 0;
+
+    //Nome dos jogadores
+    string nomeJogadorUm, nomeJogadorDois;
 
     //Laço de repetição que obriga o jogador digitar número correto
     while(opcao < 1 || opcao > 3) {
@@ -212,7 +217,11 @@ void menuInicial() {
             case 1:
                 //Inicia o jogo
                 cout << "Jogo iniciado\n";
-                jogo();
+                cout << "Digite o nome do jogador 1: ";
+                cin >> nomeJogadorUm;
+                cout << "Digite o nome do jogador 2: ";
+                cin >> nomeJogadorDois;
+                jogo(nomeJogadorUm, nomeJogadorDois, 0, 0);
                 break;
             case 2:
                 cout << "Informacoes do jogo";
