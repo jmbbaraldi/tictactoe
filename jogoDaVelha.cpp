@@ -41,18 +41,21 @@ void jogo() {
     int linhaJogada, colunaJogada;                      //Jogador posiciona sua jogada
     int estadoDeJogo = 1;                               //0=sem jogo; 1=com jogo
     int turnoDoJogador = 1;                             //1 = X; 0 = O;
+    int rodada = 0;                                     //Quantas vezes os jogadores jogaram no total
 
     //Função que inicia/popula o tabuleiro
     iniciaTabuleiro(tabuleiro);
 
-    while(estadoDeJogo = 1) {
+    while(rodada < 9) {
 
         limpaTela();
 
         //Função que exibe o tabuleiro
         exibeTabuleiro(tabuleiro);
 
-        cout << "Jogador, digite uma linha: ";
+        cout << "\nRodada: " << rodada;
+
+        cout << "\nJogador, digite uma linha: ";
         cin >> linhaJogada;
         cout << "Jogador, digite uma coluna: ";
         cin >> colunaJogada;
@@ -68,7 +71,11 @@ void jogo() {
             turnoDoJogador = 1;
         }
 
+        //Incrementa a rodada
+        rodada++;
     }
+
+    cout << "Fim de jogo!";
 }
 
 void menuInicial() {
