@@ -83,15 +83,21 @@ int confereTabuleiro(char tabuleiro[3][3]) {
 void jogo() {
 
     ///Variáveis gerais
-    char tabuleiro[3][3];                               //Tabuleiro do jogo
-    int linha, coluna;                                  //Auxiliar matriz
-    int linhaJogada, colunaJogada;                      //Jogador posiciona sua jogada
-    int estadoDeJogo = 1;                               //0=sem jogo; 1=com jogo
-    int turnoDoJogador = 1;                             //1 = X; 0 = O;
-    int rodada = 0;                                     //Quantas vezes os jogadores jogaram no total
+    string nomeJogadorUm, nomeJogadorDois, jogadorAtual;    //Nomes dos jogadores
+    char tabuleiro[3][3];                                   //Tabuleiro do jogo
+    int linha, coluna;                                      //Auxiliar matriz
+    int linhaJogada, colunaJogada;                          //Jogador posiciona sua jogada
+    int estadoDeJogo = 1;                                   //0=sem jogo; 1=com jogo
+    int turnoDoJogador = 1;                                 //1 = X; 0 = O;
+    int rodada = 0;                                         //Quantas vezes os jogadores jogaram no total
 
     //Função que inicia/popula o tabuleiro
     iniciaTabuleiro(tabuleiro);
+
+    cout << "Digite o nome do jogador 1: ";
+    cin >> nomeJogadorUm;
+    cout << "Digite o nome do jogador 2: ";
+    cin >> nomeJogadorDois;
 
     while(rodada < 9 && estadoDeJogo == 1) {
 
@@ -100,11 +106,19 @@ void jogo() {
         //Função que exibe o tabuleiro
         exibeTabuleiro(tabuleiro);
 
-        cout << "\nRodada: " << rodada;
+        cout << "\nRodada: " << rodada << "\n";
 
-        cout << "\nJogador, digite uma linha: ";
+        //Atualiza o nome do jogador atual
+         if(turnoDoJogador == 1) {
+            jogadorAtual = nomeJogadorUm;
+         }
+         else {
+            jogadorAtual = nomeJogadorDois;
+         }
+
+        cout << jogadorAtual << ", digite uma linha: ";
         cin >> linhaJogada;
-        cout << "Jogador, digite uma coluna: ";
+        cout << jogadorAtual << ", digite uma coluna: ";
         cin >> colunaJogada;
 
         if(turnoDoJogador == 1) {                       //Jogador do X
