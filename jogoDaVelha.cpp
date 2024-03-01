@@ -33,6 +33,53 @@ void exibeTabuleiro(char tabuleiro[3][3]) {
     }
 }
 
+//1 = X venceu; 2 = O venceu; 0 = Nada aconteceu
+int confereTabuleiro(char tabuleiro[3][3]) {
+    int linha, coluna;
+
+    //Confere se o jogo acabou em linhas
+        for(linha = 0; linha < 3; linha++) {
+            if(tabuleiro[linha][0] == 'X' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] == tabuleiro[linha][2]) {
+                return 1;
+            }
+            else if(tabuleiro[linha][0] == 'O' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] == tabuleiro[linha][2]) {
+                return 2;
+            }
+        }
+
+        //Confere as colunas
+        for(coluna = 0; coluna < 3; coluna++) {
+            if(tabuleiro[0][coluna] == 'X' && tabuleiro[0][coluna] == tabuleiro[1][coluna] && tabuleiro[1][coluna] == tabuleiro[2][coluna]) {
+                return 1;
+            }
+            else if(tabuleiro[0][coluna] == 'O' && tabuleiro[0][coluna] == tabuleiro[1][coluna] && tabuleiro[1][coluna] == tabuleiro[2][coluna]) {
+                return 2;
+            }
+        }
+
+        //Diagonal principal
+        if(tabuleiro[0][0] != '-' && tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][2]) {
+            if(tabuleiro[0][0] == 'X') {
+                return 1;
+            }
+            else {
+                return 2;
+            }
+        }
+
+        //Diagonal principal
+        if(tabuleiro[0][2] != '-' && tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][0]) {
+            if(tabuleiro[0][2] == 'X') {
+                return 1;
+            }
+            else {
+                return 2;
+            }
+        }
+
+        return 0;
+}
+
 void jogo() {
 
     ///Variáveis gerais
@@ -71,28 +118,14 @@ void jogo() {
             turnoDoJogador = 1;
         }
 
-        //Confere se o jogo acabou em linhas
-        for(linha = 0; linha < 3; linha++) {
-            if(tabuleiro[linha][0] == 'X' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] == tabuleiro[linha][2]) {
-                estadoDeJogo = 0;
-                cout << "O jogador X venceu!";
-            }
-            else if(tabuleiro[linha][0] == 'O' && tabuleiro[linha][0] == tabuleiro[linha][1] && tabuleiro[linha][1] == tabuleiro[linha][2]) {
-                estadoDeJogo = 0;
-                cout << "O jogador O venceu!";
-            }
+        //Confere posicionamento de vitória
+        if(confereTabuleiro(tabuleiro) == 1) {
+            cout << "\nO jogador X venceu!";
+            estadoDeJogo = 0;
         }
-
-        //Confere as colunas
-        for(coluna = 0; coluna < 3; coluna++) {
-            if(tabuleiro[0][coluna] == 'X' && tabuleiro[0][coluna] == tabuleiro[1][coluna] && tabuleiro[1][coluna] == tabuleiro[2][coluna]) {
-                estadoDeJogo = 0;
-                cout << "O jogador X venceu!";
-            }
-            else if(tabuleiro[0][coluna] == 'O' && tabuleiro[0][coluna] == tabuleiro[1][coluna] && tabuleiro[1][coluna] == tabuleiro[2][coluna]) {
-                estadoDeJogo = 0;
-                cout << "O jogador O venceu!";
-            }
+        else if(confereTabuleiro(tabuleiro) == 2) {
+            cout << "\nO jogador O venceu!";
+            estadoDeJogo = 0;
         }
 
         //Incrementa a rodada
