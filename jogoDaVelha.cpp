@@ -5,6 +5,9 @@
 
 using namespace std;
 
+//Definição da função
+void menuInicial();
+
 void limpaTela() {
     system("CLS");
 }
@@ -90,6 +93,7 @@ void jogo() {
     int estadoDeJogo = 1;                                   //0=sem jogo; 1=com jogo
     int turnoDoJogador = 1;                                 //1 = X; 0 = O;
     int rodada = 0;                                         //Quantas vezes os jogadores jogaram no total
+    int opcao;                                              //Opção de reinicio
 
     //Função que inicia/popula o tabuleiro
     iniciaTabuleiro(tabuleiro);
@@ -148,6 +152,15 @@ void jogo() {
 
     exibeTabuleiro(tabuleiro);
     cout << "\nFim de jogo!";
+    cout << "\nDeseja reiniciar o jogo?";
+    cout << "\n1 - Sim";
+    cout << "\n2 - Nao\n";
+    if(opcao == 1) {
+        menuInicial();
+    }
+    else {
+        cout << "Ate mais!";
+    }
 }
 
 void menuInicial() {
