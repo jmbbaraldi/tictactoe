@@ -94,6 +94,7 @@ void jogo() {
     int turnoDoJogador = 1;                                 //1 = X; 0 = O;
     int rodada = 0;                                         //Quantas vezes os jogadores jogaram no total
     int opcao;                                              //Opção de reinicio
+    bool posicionouJogada;                                  //Verifica se o jogador marcou no tabuleiro
 
     //Função que inicia/popula o tabuleiro
     iniciaTabuleiro(tabuleiro);
@@ -113,28 +114,42 @@ void jogo() {
         cout << "\nRodada: " << rodada << "\n";
 
         //Atualiza o nome do jogador atual
-         if(turnoDoJogador == 1) {
+        if(turnoDoJogador == 1) {
             jogadorAtual = nomeJogadorUm;
-         }
-         else {
+        }
+        else {
             jogadorAtual = nomeJogadorDois;
-         }
-
-        cout << jogadorAtual << ", digite uma linha: ";
-        cin >> linhaJogada;
-        cout << jogadorAtual << ", digite uma coluna: ";
-        cin >> colunaJogada;
-
-        if(turnoDoJogador == 1) {                       //Jogador do X
-            tabuleiro[linhaJogada][colunaJogada] = 'X';
-
-            turnoDoJogador = 2;
         }
-        else {                                          //Jogador do O
-            tabuleiro[linhaJogada][colunaJogada] = 'O';
 
-            turnoDoJogador = 1;
+        posicionouJogada = false;
+
+        while(posicionouJogada == false) {
+
+            cout << jogadorAtual << ", digite uma linha: ";
+            cin >> linhaJogada;
+            cout << jogadorAtual << ", digite uma coluna: ";
+            cin >> colunaJogada;
+
+            //Verifica se a posição é vazia
+            if(tabuleiro[linhaJogada][colunaJogada] == '-') {
+
+                //
+                posicionouJogada = true;
+
+                if(turnoDoJogador == 1) {                       //Jogador do X
+                    tabuleiro[linhaJogada][colunaJogada] = 'X';
+
+                    turnoDoJogador = 2;
+                }
+                else {                                          //Jogador do O
+                    tabuleiro[linhaJogada][colunaJogada] = 'O';
+
+                    turnoDoJogador = 1;
+                }
+            }
         }
+
+
 
         //Confere posicionamento de vitória
         if(confereTabuleiro(tabuleiro) == 1) {
