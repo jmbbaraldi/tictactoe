@@ -224,7 +224,15 @@ void menuInicial() {
                 jogo(nomeJogadorUm, nomeJogadorDois, 0, 0);
                 break;
             case 2:
+                limpaTela();
                 cout << "Informacoes do jogo";
+                cout << "\nJogo desenvolvido por Joao Marcelo em 2024";
+                cout << "\n1- Voltar";
+                cout << "\n2- Sair\n";
+                cin >> opcao;
+                if(opcao == 1) {
+                    menuInicial();
+                }
                 break;
             case 3:
                 cout << "Ate mais!";
