@@ -83,13 +83,20 @@ int confereTabuleiro(char tabuleiro[3][3]) {
         return 0;
 }
 
+void exibeInstrucoes() {
+    cout << "\nMapa de Posicoes: ";
+    cout << "\n 7 | 8 | 9";
+    cout << "\n 4 | 5 | 6";
+    cout << "\n 1 | 2 | 3";
+}
+
 void jogo() {
 
     ///Variáveis gerais
     string nomeJogadorUm, nomeJogadorDois, jogadorAtual;    //Nomes dos jogadores
     char tabuleiro[3][3];                                   //Tabuleiro do jogo
     int linha, coluna;                                      //Auxiliar matriz
-    int linhaJogada, colunaJogada;                          //Jogador posiciona sua jogada
+    int linhaJogada, colunaJogada, posicaoJogada;           //Jogador posiciona sua jogada
     int estadoDeJogo = 1;                                   //0=sem jogo; 1=com jogo
     int turnoDoJogador = 1;                                 //1 = X; 0 = O;
     int rodada = 0;                                         //Quantas vezes os jogadores jogaram no total
@@ -111,6 +118,9 @@ void jogo() {
         //Função que exibe o tabuleiro
         exibeTabuleiro(tabuleiro);
 
+        //Exibe qual número corresponde a qual posição
+        exibeInstrucoes();
+
         cout << "\nRodada: " << rodada << "\n";
 
         //Atualiza o nome do jogador atual
@@ -123,12 +133,16 @@ void jogo() {
 
         posicionouJogada = false;
 
+        //Matriz de posições possíveis
+            int posicoes[9][2] = {{2,0}, {2,1}, {2,2}, {1,0}, {1,1}, {1,2}, {0,0}, {0,1}, {0,2}};
+
         while(posicionouJogada == false) {
 
-            cout << jogadorAtual << ", digite uma linha: ";
-            cin >> linhaJogada;
-            cout << jogadorAtual << ", digite uma coluna: ";
-            cin >> colunaJogada;
+            cout << jogadorAtual<< ", digite uma posicao conforme o mapa acima: ";
+            cin >> posicaoJogada;
+
+            linhaJogada = posicoes[posicaoJogada-1][0];
+            colunaJogada = posicoes[posicaoJogada-1][1];
 
             //Verifica se a posição é vazia
             if(tabuleiro[linhaJogada][colunaJogada] == '-') {
@@ -170,6 +184,7 @@ void jogo() {
     cout << "\nDeseja reiniciar o jogo?";
     cout << "\n1 - Sim";
     cout << "\n2 - Nao\n";
+    cin >> opcao;
     if(opcao == 1) {
         menuInicial();
     }
